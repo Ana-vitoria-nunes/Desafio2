@@ -5,9 +5,10 @@ public class Main {
         Registros registros=new Registros();
         Scanner scanner = new Scanner(System.in);
 
-        int opcao = 0;
 
-        while (opcao != 9) {
+        try {
+            int num=0;
+            while (num != 9) {
             System.out.println("----- MENU -----");
             System.out.println("1. Cadastrar vendedor");
             System.out.println("2. Cadastrar cliente");
@@ -19,10 +20,11 @@ public class Main {
             System.out.println("8. Pesquisar vendas por vendedor");
             System.out.println("7. Sair");
             System.out.println("Digite a opção desejada: ");
-            opcao = scanner.nextInt();
-            scanner.nextLine(); // Limpar o buffer do scanner
+            String opcao = scanner.nextLine();
+            //scanner.nextLine(); // Limpar o buffer do scanner
+            num=Integer.parseInt(opcao);
 
-            switch (opcao) {
+            switch (num) {
                 case 1:
                         registros.cadastrarVendedor();
 
@@ -57,6 +59,9 @@ public class Main {
                     System.out.println("Opção inválida. Digite novamente.");
                     break;
             }
+        }
+        }catch (NumberFormatException e){
+            System.out.println("Digite um numero inteito!");
         }
     }
 }

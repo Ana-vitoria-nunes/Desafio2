@@ -23,7 +23,4 @@ public class Produto {
         return preco;
     }
 
-    public double getValorTotal() {
-        return valorTotal;
-    }
 }
