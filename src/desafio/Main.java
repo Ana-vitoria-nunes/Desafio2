@@ -21,7 +21,6 @@ public class Main {
             System.out.println("7. Sair");
             System.out.println("Digite a opção desejada: ");
             String opcao = scanner.nextLine();
-            //scanner.nextLine(); // Limpar o buffer do scanner
             num=Integer.parseInt(opcao);
 
             switch (num) {
