@@ -158,7 +158,7 @@ public class Registros {
         }
     }
     public void listarClientes() {
-        clientes.put(000,new Cliente("Ricardo@","Ricardo",000));
+        clientes.put(333,new Cliente("Ricardo@","Ricardo",333));
         clientes.put(111,new Cliente("Daniel@","Daniel",111));
         clientes.put(222,new Cliente("Ruboia@","Rubia",222));
 
@@ -178,7 +178,7 @@ public class Registros {
         }
     }
     public void cadastrarProdutos() {
-        clientes.put(000,new Cliente("Ricardo@","Ricardo",000));
+        clientes.put(333,new Cliente("Ricardo@","Ricardo",333));
         clientes.put(111,new Cliente("Daniel@","Daniel",111));
         clientes.put(222,new Cliente("Ruboia@","Rubia",222));
 
@@ -193,7 +193,7 @@ public class Registros {
             System.out.println("Qual seu cpf de cliente: ");
             int cpfPC = scanner.nextInt();
             System.out.println();
-            if (clientes.containsKey(cpfPC)) {
+            if (!clientes.containsKey(cpfPC)) {
                 throw new IllegalArgumentException("Cliente não cadastrado!");
             }
             System.out.println("Qual o codigo do produto que deseja: ");
@@ -209,13 +209,12 @@ public class Registros {
                 throw new IllegalArgumentException("Codigo não encontrado");
             }
             System.out.println("Quantas unidades deseja desse produto: ");
-            String quantidade = scanner.nextLine();
-            int num=Integer.parseInt(quantidade);
+            int quantidade = scanner.nextInt();
+            System.out.println();
             LocalDate data = LocalDate.now();
-
             Vendedor vendedor = vendedores.get(cpfPV);
             Cliente cliente = clientes.get(cpfPC);
-            vendas.add(new Vendas(vendedor, cliente, codigo, produto.getNomeProduto(),produto.getPreco(), num, data));
+            vendas.add(new Vendas(vendedor, cliente, codigo, produto.getNomeProduto(),produto.getPreco(),quantidade, data));
         }
         catch (IllegalArgumentException e){
             System.out.println(e.getMessage());
