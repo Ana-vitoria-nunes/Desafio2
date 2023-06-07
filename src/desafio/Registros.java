@@ -62,7 +62,7 @@ public class Registros {
         }
     }
     public void cadastrarCliente() {
-        clientes.put(000,new Cliente("Ricardo@","Ricardo",000));
+        clientes.put(333,new Cliente("Ricardo@","Ricardo",333));
         clientes.put(111,new Cliente("Daniel@","Daniel",111));
         clientes.put(222,new Cliente("Ruboia@","Rubia",222));
 
@@ -120,7 +120,7 @@ public class Registros {
         if (vendas.isEmpty()) {
             System.out.println("Nenhuma venda cadastrada.");
         } else {
-            System.out.println("Lista de vendas:");
+            System.out.println("=====Lista de vendas=====");
             for (Vendas venda : vendas) {
                 int cont=0;
                 cont++;
@@ -145,7 +145,7 @@ public class Registros {
         if (vendedores.isEmpty()) {
             System.out.println("Nenhum vendedor cadastrado.");
         } else {
-            System.out.println("Lista de vendedores disponiveis:");
+            System.out.println("=====Lista de vendedores disponiveis=====:");
             int cont=0;
             for (Vendedor vendedor : vendedores.values()) {
                 cont++;
@@ -165,7 +165,7 @@ public class Registros {
         if (clientes.isEmpty()) {
             System.out.println("Nenhum cliente cadastrado.");
         } else {
-            System.out.println("Lista de clientes:");
+            System.out.println("=====Lista de clientes=====");
             int cont=0;
             for (Cliente cliente : clientes.values()) {
                 cont++;
@@ -184,24 +184,20 @@ public class Registros {
 
         try {
 
-            boolean encontrado = true;
-            System.out.println("Qual o cpf do vendedor: ");
+            System.out.println("Escolha um dos vendedores acima e digite o cpf dele: ");
             int cpfPV = scanner.nextInt();
             System.out.println();
             if (!vendedores.containsKey(cpfPV)) {
-                System.out.println("Vendedor não cadastrado!");
-                return;
+                throw new IllegalArgumentException("Vendedor não cadastrado!");
             }
-            System.out.println("Qual o cpf do cliente: ");
-            scanner.nextLine();
+            System.out.println("Qual seu cpf de cliente: ");
             int cpfPC = scanner.nextInt();
-            if (!clientes.containsKey(cpfPC)) {
-                System.out.println("Cliente não cadastrado!");
-                return;
+            System.out.println();
+            if (clientes.containsKey(cpfPC)) {
+                throw new IllegalArgumentException("Cliente não cadastrado!");
             }
             System.out.println("Qual o codigo do produto que deseja: ");
             int codigo = scanner.nextInt();
-            System.out.println();
             Produto produto=new Produto(0,"",0);
             for (int i=0;i<produtos.size();i++) {
                 if (produtos.get(i).getCodigo() == codigo) {
@@ -210,30 +206,30 @@ public class Registros {
                 }
             }
             if (produto.getNomeProduto().isEmpty()){
-                throw new InputMismatchException("Codigo não encontrado");
+                throw new IllegalArgumentException("Codigo não encontrado");
             }
-            System.out.println("Qual a quantidade: ");
-            int quantidade = scanner.nextInt();
-
+            System.out.println("Quantas unidades deseja desse produto: ");
+            String quantidade = scanner.nextLine();
+            int num=Integer.parseInt(quantidade);
             LocalDate data = LocalDate.now();
 
             Vendedor vendedor = vendedores.get(cpfPV);
             Cliente cliente = clientes.get(cpfPC);
-            vendas.add(new Vendas(vendedor, cliente, codigo, produto.getNomeProduto(),produto.getPreco(), quantidade, data));
+            vendas.add(new Vendas(vendedor, cliente, codigo, produto.getNomeProduto(),produto.getPreco(), num, data));
         }
-        catch (InputMismatchException e){
+        catch (IllegalArgumentException e){
             System.out.println(e.getMessage());
         }
 
     }
    public void pesquisarComprasPorCliente() {
         System.out.println("Qual seu cpf de  cliente: ");
-        scanner.nextLine();
         int cpfCliente = scanner.nextInt();
-        if (clientes.containsKey(cpfCliente)) {
+       System.out.println();
+        if (!clientes.containsKey(cpfCliente)) {
             System.out.println("Compras do cliente com cpf " + cpfCliente + ":");
             for (Vendas venda : vendas) {
-                if (clientes.containsKey(cpfCliente)) {
+                if (!clientes.containsKey(cpfCliente)) {
                     System.out.println("Código: " + venda.getCodigo());
                     System.out.println("Produto: " + venda.getNomeProduto());
                     System.out.println("Preço: " + venda.getPreco());
@@ -248,8 +244,8 @@ public class Registros {
     }
     public void pesquisarVendasPorVendedor() {
         System.out.print("Qual seu e-mail de  vendedor: ");
-        scanner.nextLine();
         String emailVendedor = scanner.nextLine();
+        System.out.println();
         if (!vendedores.containsValue(emailVendedor)) {
             System.out.println("Vendas do vendedor com e-mail " + emailVendedor + ":");
             for (Vendas venda : vendas) {

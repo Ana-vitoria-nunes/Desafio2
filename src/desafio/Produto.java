@@ -4,7 +4,6 @@ public class Produto {
     private int codigo;
     private String nomeProduto;
     private double preco;
-    private double valorTotal;
     public Produto(int codigo, String nomeProduto, double preco) {
         this.codigo = codigo;
         this.nomeProduto = nomeProduto;

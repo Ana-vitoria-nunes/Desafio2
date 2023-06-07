@@ -16,7 +16,6 @@ public class Vendedor {
     public String getNome() {
         return nome;
     }
-
     public int getCpf() {
         return cpf;
     }

@@ -22,7 +22,6 @@ public class Vendas {
         this.valorTotal = preco * quantidade;
         this.data=data;
     }
-
     public Vendedor getVendedor() {
         return vendedor;
     }
